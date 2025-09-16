@@ -47,7 +47,10 @@ def fend(q: str) -> str:
             check=True,
         )
         return result.stdout.strip()
+    except subprocess.CalledProcessError as e:
+        return f"Fend reports a problem: `{e.stderr.strip()}`\nCheck your query and try again.\nHINT: For complex queries, try breaking your query down into simpler parts to locate the source of the error."
     except Exception as e:
+        #err = e.stderr.strip()
         return f"Error running fend: `{e}`\nThe MCP tool is incorrectly setup, additional calls will not work.\nCheck that fend is installed and is in the PATH (or hardcode FEND_COMMAND in the script)."
 
 
@@ -67,6 +70,22 @@ def manual() -> str:
     """Get the fend manual."""
     return manual_resource()
 
+def test_query(q: str) -> str:
+    """Test a query to the fend tool."""
+    print(f"Query: {q}")
+    result = fend(q)
+    print(f"Result: {result}")
+    print("")
+
+def tests():
+    test_query("2 m + 3 m")
+    test_query("5 kg to lb")
+    test_query("sqrt((146.6 m)^2 + (230.3 m / 2)^2) to furlongs")
+    test_query("((500 g) * ((9.8 m / s^2) * (10 m)) / (2.5 s)) to 3dp")
+    # this one should fail
+    test_query("((500 g) * ((9.8 m / s^2) * (10 m)) / (2.5 s)) to 3 decimal places")
+    
 
 if __name__ == "__main__":
+    #tests()
     mcp.run()
