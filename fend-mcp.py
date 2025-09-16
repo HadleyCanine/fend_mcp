@@ -9,6 +9,10 @@ from mcp.server.fastmcp import FastMCP
 # relative to the location of this script itself
 MANUAL_LOCAL_PATH = "./fend-manual-llm.txt"
 
+# Command used to call fend (assumed to be in PATH, change this if it's not)
+FEND_COMMAND = "fend"
+
+# resource URI
 MANUAL_URI = "fend://manual"
 
 mcp = FastMCP("fend calculator")
@@ -16,10 +20,10 @@ mcp = FastMCP("fend calculator")
 
 @mcp.tool()
 def fend(q: str) -> str:
-    """fend, an arbitrary-precision unit-aware calculator.
+    """an arbitrary-precision unit-aware calculator.
     
     This tool supports a wide range of calculations including arithmetic (e.g., +, -, *, /, ^, !),
-    unit conversions (e.g., kg, m, s, N), temperature conversions (absolute and relative),
+    unit conversions (e.g., kg, m, s, N, mph), temperature conversions (absolute and relative),
     date calculations, and even D&D-style dice rolls (e.g., 3d6).
     
     Example query: `sqrt((146.6 m)^2 + (230.3 m / 2)^2) to furlongs`
@@ -35,7 +39,7 @@ def fend(q: str) -> str:
 
     try:
         result = subprocess.run(
-            ["fend", "-e", q],
+            [FEND_COMMAND, "-e", q],
             capture_output=True,
             timeout=5,
             encoding="utf-8",
@@ -44,7 +48,7 @@ def fend(q: str) -> str:
         )
         return result.stdout.strip()
     except Exception as e:
-        return f"Error running fend: `{e}`\nThe MCP tool is incorrectly setup, additional calls will not work."
+        return f"Error running fend: `{e}`\nThe MCP tool is incorrectly setup, additional calls will not work.\nCheck that fend is installed and is in the PATH (or hardcode FEND_COMMAND in the script)."
 
 
 @mcp.resource(MANUAL_URI, mime_type="text/plain")
