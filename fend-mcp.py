@@ -70,12 +70,14 @@ def manual() -> str:
     """Get the fend manual."""
     return manual_resource()
 
+
 def test_query(q: str) -> str:
     """Test a query to the fend tool."""
     print(f"Query: {q}")
     result = fend(q)
     print(f"Result: {result}")
     print("")
+
 
 def tests():
     test_query("2 m + 3 m")
