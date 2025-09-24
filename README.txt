@@ -92,6 +92,32 @@ server. Here's how you'd do it in the Jan desktop application:
 4. Click Save, and the portal is now open! Your Jan models can now
    see and use the `fend` tool!
 
+========================================================================
+~*~*~ General JSON Configuration for Other MCP-Compatible Platforms ~*~*~
+========================================================================
+
+For other AI clients or MCP host environments that expect a JSON
+configuration, you can use the following structure. This example shows
+how to configure the 'fend' MCP server using STDIO transport:
+
+```
+
+{
+  "mcpServers": {
+    "fend": {
+      "command": "python",
+      "args": [
+        "C:\\Path\\To\\fend-mcp\\fend_mcp.py"
+      ]
+    }
+  }
+}
+
+```
+
+(Remember to replace C:\Path\To\fend-mcp\fend_mcp.py with the
+actual, absolute path to your `fend_mcp.py` script, escaping
+backslashes if needed as shown above!)
 
 =====================================
 ~*~*~ Our Sacred Pact (License) ~*~*~
