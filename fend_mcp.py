@@ -78,16 +78,5 @@ def test_query(q: str) -> str:
     print(f"Result: {result}")
     print("")
 
-
-def tests():
-    test_query("2 m + 3 m")
-    test_query("5 kg to lb")
-    test_query("sqrt((146.6 m)^2 + (230.3 m / 2)^2) to furlongs")
-    test_query("((500 g) * ((9.8 m / s^2) * (10 m)) / (2.5 s)) to 3dp")
-    # this one should fail
-    test_query("((500 g) * ((9.8 m / s^2) * (10 m)) / (2.5 s)) to 3 decimal places")
-    
-
 if __name__ == "__main__":
-    #tests()
     mcp.run()
